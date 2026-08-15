@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Task
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5" style="max-width: 700px;">
+
+        <h2 class="mb-4">➕ Add New Task</h2>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Task Title</label>
+                <input type="text" class="form-control" name="title" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="4" name="description"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Due Date</label>
+                <input type="date" class="form-control" name="due_date">
+            </div>
+
+            <button class="btn btn-success">
+                Add Task
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

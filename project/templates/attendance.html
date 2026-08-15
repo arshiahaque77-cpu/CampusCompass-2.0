@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Attendance
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+
+        <h2>Attendance Tracker</h2>
+
+        <a href="{{ url_for('add_subject') }}" class="btn btn-primary mt-3">
+            ➕ Add Subject
+        </a>
+
+        <hr>
+
+        {% if subjects %}
+
+            {% for subject in subjects %}
+
+                <div class="card mt-3">
+                    <div class="card-body">
+
+                        <h5>{{ subject[1] }}</h5>
+
+                        <p>
+                            Attended: {{ subject[2] }} / {{ subject[3] }}
+                        </p>
+
+                        {% if subject[3] == 0 %}
+
+                            <p>Attendance: 0%</p>
+
+                        {% else %}
+
+                            {% set percentage = (subject[2] / subject[3] * 100) %}
+
+                            {% if percentage >= 75 %}
+
+                                <span class="badge bg-success">
+                                    Attendance: {{ "%.1f"|format(percentage) }}%
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    Attendance: {{ "%.1f"|format(percentage) }}%
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                        <div class="mt-3">
+
+                            <a href="{{ url_for('attended', subject_id=subject[0]) }}"
+                               class="btn btn-success btn-sm">
+                                ➕ Attended
+                            </a>
+
+                            <a href="{{ url_for('missed', subject_id=subject[0]) }}"
+                               class="btn btn-warning btn-sm">
+                                ➕ Missed
+                            </a>
+
+                            <a href="{{ url_for('delete_subject', subject_id=subject[0]) }}"
+                               class="btn btn-danger btn-sm">
+                                🗑 Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No subjects added yet.</p>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

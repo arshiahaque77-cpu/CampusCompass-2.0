@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Subject
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+
+        <h2>Add Subject</h2>
+
+        <form action="{{ url_for('add_subject') }}" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Subject Name</label>
+
+                <input
+                    autocomplete="off"
+                    autofocus
+                    class="form-control"
+                    name="subject_name"
+                    required
+                >
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Add Subject
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}

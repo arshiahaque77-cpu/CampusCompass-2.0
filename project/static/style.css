@@ -1,0 +1,199 @@
+/* =========================
+   CampusCompass Cute Theme
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+body {
+    background: linear-gradient(135deg, #fdf2f8, #eef2ff);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+
+/* Navbar */
+
+.navbar {
+    background: linear-gradient(90deg, #8b5cf6, #ec4899) !important;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: white !important;
+}
+
+
+/* Buttons */
+
+.btn {
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+
+.btn-primary {
+    background: linear-gradient(45deg,#6366f1,#8b5cf6);
+    border: none;
+}
+
+
+.btn-success {
+    background: #10b981;
+    border: none;
+}
+
+
+.btn-warning {
+    background: #f59e0b;
+    border: none;
+    color:white;
+}
+
+
+.btn-danger {
+    background: #ef4444;
+    border:none;
+}
+
+
+/* Cards */
+
+.card {
+
+    border:none;
+    border-radius:25px;
+    background:white;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+    transition:0.3s;
+}
+
+
+.card:hover {
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.15);
+
+}
+
+
+/* Headings */
+
+h1,h2,h3,h5 {
+
+    font-weight:700;
+    color:#312e81;
+
+}
+
+
+.lead {
+
+    color:#6b7280;
+
+}
+
+
+/* Forms */
+
+form {
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.08);
+
+}
+
+
+.form-control {
+
+    border-radius:15px;
+
+    border:2px solid #e5e7eb;
+
+    padding:12px;
+
+}
+
+
+.form-control:focus {
+
+    border-color:#8b5cf6;
+
+    box-shadow:
+    0 0 10px rgba(139,92,246,0.3);
+
+}
+
+
+/* Badges */
+
+.badge {
+
+    border-radius:20px;
+
+    padding:10px 15px;
+
+}
+
+
+/* Home page */
+
+.display-3 {
+
+    background:
+    linear-gradient(90deg,#8b5cf6,#ec4899);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+/* Links */
+
+a {
+
+    text-decoration:none;
+
+}
+
+
+/* Container spacing */
+
+.container {
+
+    padding-bottom:40px;
+
+}
+
+
+/* Cute empty states */
+
+p {
+
+    color:#4b5563;
+
+}
