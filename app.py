@@ -375,6 +375,81 @@ def delete_subject(subject_id):
     return redirect(url_for("attendance"))
 
 
+
+# Add Class
+@app.route("/add_class", methods=["GET", "POST"])
+def add_class():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+
+        subject_name = request.form.get("subject_name")
+
+        day = request.form.get("day")
+
+        start_time = request.form.get("start_time")
+
+        end_time = request.form.get("end_time")
+
+        repeat = request.form.get("repeat")
+
+        connection = sqlite3.connect("campuscompass.db")
+
+        cursor = connection.cursor()
+
+        cursor.execute("""
+        INSERT INTO timetable
+        (user_id, subject_name, day, start_time, end_time, repeat)
+        VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            session["user_id"],
+            subject_name,
+            day,
+            start_time,
+            end_time,
+            repeat
+        ))
+
+        connection.commit()
+
+        connection.close()
+
+        return redirect(url_for("timetable"))
+
+    return render_template("add_class.html")
+
+
+# Timetable
+@app.route("/timetable")
+def timetable():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    connection = sqlite3.connect("campuscompass.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    SELECT *
+    FROM timetable
+    WHERE user_id = ?
+    ORDER BY day, start_time
+    """, (session["user_id"],))
+
+    classes = cursor.fetchall()
+
+    connection.close()
+
+    return render_template(
+        "timetable.html",
+        classes=classes
+    )
+
+
+
 # Run the Flask development server
 if __name__ == "__main__":
     app.run(debug=True)

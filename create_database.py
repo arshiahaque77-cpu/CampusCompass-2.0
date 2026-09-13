@@ -50,6 +50,34 @@ def create_database():
     )
     """)
 
+    # Timetable table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS timetable (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        subject_name TEXT NOT NULL,
+        day TEXT NOT NULL,
+        start_time TEXT NOT NULL,
+        end_time TEXT NOT NULL,
+        repeat TEXT NOT NULL DEFAULT 'Weekly',
+
+
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )
+    """)
+
+
+
+    # Add repeat column to existing timetable table
+    try:
+        cursor.execute("""
+        ALTER TABLE timetable
+        ADD COLUMN repeat TEXT NOT NULL DEFAULT 'Weekly'
+        """)
+    except sqlite3.OperationalError:
+        pass
+
+ 
     # Save all changes to the database
     connection.commit()
 
