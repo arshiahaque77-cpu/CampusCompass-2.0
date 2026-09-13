@@ -429,14 +429,23 @@ def timetable():
         return redirect(url_for("login"))
 
     connection = sqlite3.connect("campuscompass.db")
-
     cursor = connection.cursor()
 
     cursor.execute("""
     SELECT *
     FROM timetable
     WHERE user_id = ?
-    ORDER BY day, start_time
+    ORDER BY 
+        CASE day
+            WHEN 'Monday' THEN 1
+            WHEN 'Tuesday' THEN 2
+            WHEN 'Wednesday' THEN 3
+            WHEN 'Thursday' THEN 4
+            WHEN 'Friday' THEN 5
+            WHEN 'Saturday' THEN 6
+            ELSE 7
+        END,
+        start_time
     """, (session["user_id"],))
 
     classes = cursor.fetchall()
@@ -447,6 +456,69 @@ def timetable():
         "timetable.html",
         classes=classes
     )
+
+
+
+@app.route("/edit_class/<int:class_id>", methods=["GET", "POST"])
+def edit_class(class_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    connection = sqlite3.connect("campuscompass.db")
+    cursor = connection.cursor()
+
+    if request.method == "POST":
+
+        subject_name = request.form.get("subject_name")
+        day = request.form.get("day")
+        start_time = request.form.get("start_time")
+        end_time = request.form.get("end_time")
+        repeat = request.form.get("repeat")
+
+        cursor.execute("""
+        UPDATE timetable
+        SET subject_name = ?, day = ?, start_time = ?, end_time = ?, repeat = ?
+        WHERE id = ? AND user_id = ?
+        """, (
+            subject_name,
+            day,
+            start_time,
+            end_time,
+            repeat,
+            class_id,
+            session["user_id"]
+        ))
+
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for("timetable"))
+
+    connection.close()
+
+    return render_template("edit_class.html", class_id = class_id)
+
+
+
+@app.route("/delete_class/<int:class_id>")
+def delete_class(class_id):
+    
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    connection = sqlite3.connect("campuscompass.db")
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    DELETE FROM timetable
+    WHERE id = ? AND user_id = ?
+    """, (class_id, session["user_id"]))
+
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for("timetable"))
 
 
 

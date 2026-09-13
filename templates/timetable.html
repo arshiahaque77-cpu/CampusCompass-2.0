@@ -32,6 +32,8 @@ Timetable
                         <th>Day</th>
                         <th>Start Time</th>
                         <th>End Time</th>
+                        <th>Repeat</th>
+                        <th>Actions</th>
                     </tr>
 
                 </thead>
@@ -42,13 +44,52 @@ Timetable
 
                         <tr>
 
-                            <td>{{ class[2] }}</td>
+                            <td>
+                                <strong>{{ class[2] }}</strong>
+                            </td>
 
                             <td>{{ class[3] }}</td>
 
                             <td>{{ class[4] }}</td>
 
                             <td>{{ class[5] }}</td>
+
+                            <td>
+                                {% if class[6] == "Weekly" %}
+                                    <span class="badge bg-success">
+                                        Weekly
+                                    </span>
+
+                                {% elif class[6] == "Biweekly" %}
+                                    <span class="badge bg-warning text-dark">
+                                        Biweekly
+                                    </span>
+
+                                {% elif class[6] == "Monthly" %}
+                                    <span class="badge bg-info">
+                                        Monthly
+                                    </span>
+
+                                {% else %}
+                                   Once
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <a href="/edit_class/{{ class[0] }}" 
+                                class="btn btn-sm btn-warning">
+                                    ✏️ Edit
+                                </a>
+
+                                <a href="/delete_class/{{ class[0] }}" 
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Are you sure you want to delete this class?');">
+                                   🗑️ Delete
+                                </a>
+                                
+                            </td>
 
                         </tr>
 
